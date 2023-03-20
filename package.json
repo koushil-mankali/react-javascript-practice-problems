@@ -1,0 +1,19 @@
+{
+  "name": "react-javascript-practice-problems",
+  "version": "1.0.0",
+  "description": "",
+  "main": "react-render.js",
+  "scripts": {
+    "start": "nodemon react-render"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koushil-mankali/react-javascript-practice-problems.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/koushil-mankali/react-javascript-practice-problems/issues"
+  },
+  "homepage": "https://github.com/koushil-mankali/react-javascript-practice-problems#readme"
+}

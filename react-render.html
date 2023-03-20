@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>react render</title>
+    <style>
+      .magic {
+        color: crimson;
+        font-size: 2rem;
+        background-color: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      /**
+       * Question => For a recursive description of DOM elements i.e,
+       *
+       *  CODE STARTS
+       *
+       *  const dom = {
+       *      type: "div",
+       *      props: {id: "hello"},
+       *      children: [{type: "h1", children: "hello"}]
+       *  }
+       *
+       *  CODE ENDS
+       *
+       * Prepare a function that prepares a actual dom elements.
+       */
+
+      const dom = {
+        type: "div",
+        props: { id: "Main Div" },
+        children: [
+          "Main Div",
+          {
+            type: "h1",
+            props: { id: "h1div", class: "h1divclass" },
+            children: "hello h1",
+          },
+          { type: "h3", children: "h3 child" },
+          {
+            type: "div",
+            props: { id: "magic", class: "magic div" },
+            children: "Magic Div",
+          },
+        ],
+      };
+
+      const frag = document.createDocumentFragment();
+      const buildDOM = (dom) => {
+        if (Array.isArray(dom?.children)) {
+          const ele = document.createElement("div");
+          if (dom?.props) {
+            Object.entries(dom?.props)?.map((obj) => {
+              ele.setAttribute(obj[0], obj[1]);
+            });
+          }
+          ele.appendChild(buildDOM(dom?.children));
+          frag.appendChild(ele);
+        } else {
+          const innerFrag = document.createDocumentFragment();
+          dom?.map((val) => {
+            const ele = document.createElement("div");
+            ele.innerText = val?.children || val;
+            if (val?.props) {
+              Object.entries(val?.props)?.map((obj) => {
+                ele.setAttribute(obj[0], obj[1]);
+              });
+            }
+            innerFrag.appendChild(ele);
+          });
+
+          return innerFrag;
+        }
+      };
+
+      const rootEle = buildDOM(dom);
+      console.log("first", frag);
+      document.getElementById("root").appendChild(frag);
+    </script>
+  </body>
+</html>
