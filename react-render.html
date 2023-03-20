@@ -32,6 +32,7 @@
        * Prepare a function that prepares a actual dom elements.
        */
 
+      //  Dom Object
       const dom = {
         type: "div",
         props: { id: "Main Div" },
@@ -53,20 +54,29 @@
 
       const frag = document.createDocumentFragment();
       const buildDOM = (dom) => {
+        // If dom has children which is array
         if (Array.isArray(dom?.children)) {
           const ele = document.createElement("div");
+
+          // Adding attributes to element.
           if (dom?.props) {
             Object.entries(dom?.props)?.map((obj) => {
               ele.setAttribute(obj[0], obj[1]);
             });
           }
+          // Recursivly calling buildDom with children
           ele.appendChild(buildDOM(dom?.children));
+
+          // appending final div to "frag" Document Fragment
           frag.appendChild(ele);
         } else {
+          // If dom children is string
           const innerFrag = document.createDocumentFragment();
           dom?.map((val) => {
             const ele = document.createElement("div");
             ele.innerText = val?.children || val;
+
+            // Adding attributes to element.
             if (val?.props) {
               Object.entries(val?.props)?.map((obj) => {
                 ele.setAttribute(obj[0], obj[1]);
@@ -79,8 +89,11 @@
         }
       };
 
+      // Calling buildDom with dom object.
       const rootEle = buildDOM(dom);
       console.log("first", frag);
+
+      // Inseting final element into html
       document.getElementById("root").appendChild(frag);
     </script>
   </body>
